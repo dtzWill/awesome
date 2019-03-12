@@ -46,6 +46,8 @@ local function default_template()
     local ibm = wibox.container.margin(ib, dpi(4))
     local l   = wibox.layout.fixed.horizontal()
 
+    bgb:set_border_strategy("inner")
+
     -- All of this is added in a fixed widget
     l:fill_space(true)
     l:add(ibm)
