@@ -217,6 +217,7 @@ local function protected_method_call(_, sender, object_path, interface, method, 
 
             if notification then
                 for k, v in pairs(args) do
+                    if k == "destroy" then k = "destroy_cb" end
                     notification[k] = v
                 end
             else
