@@ -243,6 +243,10 @@ function util.geticonpath(iconname, exts, dirs, size)
                     if gfs.file_readable(icon) then
                         return icon
                     end
+                    icon = string.format("%s%u/%s/%s.%s", d, size, t, iconname, e)
+                    if gfs.file_readable(icon) then
+                        return icon
+                    end
                 end
             end
         end
