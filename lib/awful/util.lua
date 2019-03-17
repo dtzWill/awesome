@@ -226,7 +226,7 @@ end
 -- @tparam[opt] string size The size. If this is specified, subdirectories `x`
 --   of the dirs are searched first.
 function util.geticonpath(iconname, exts, dirs, size)
-    exts = exts or { 'png', 'gif' }
+    exts = exts or { 'png', 'gif', 'svg' }
     dirs = dirs or { '/usr/share/pixmaps/', '/usr/share/icons/hicolor/' }
     local icontypes = { 'apps', 'actions',  'categories',  'emblems',
         'mimetypes',  'status', 'devices', 'extras', 'places', 'stock' }
