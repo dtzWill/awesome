@@ -17,7 +17,7 @@ ret.config = {
     padding         = dpi(4),
     spacing         = dpi(1),
     icon_dirs       = { "/usr/share/pixmaps/", "/usr/share/icons/hicolor" },
-    icon_formats    = { "png", "gif" },
+    icon_formats    = { "png", "gif", "svg" },
     notify_callback = nil,
 }
 
