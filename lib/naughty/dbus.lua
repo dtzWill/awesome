@@ -27,7 +27,6 @@ local naughty = require("naughty.core")
 local cst     = require("naughty.constants")
 local nnotif = require("naughty.notification")
 local naction = require("naughty.action")
-local gdebug = require("gears.debug")
 
 --- Notification library, dbus bindings
 local dbus = { config = {} }
@@ -126,7 +125,6 @@ local function protected_method_call(_, sender, object_path, interface, method, 
         local appname, replaces_id, icon, title, text, actions, hints, expire =
             unpack(parameters.value)
         local args = {}
-
         if text ~= "" then
             args.message = text
             if title ~= "" then
@@ -204,17 +202,6 @@ local function protected_method_call(_, sender, object_path, interface, method, 
                 -- 6 -> channels
                 -- 7 -> data
                 local w, h, rowstride, _, _, channels, icon_data = unpack(hints.icon_data)
-                if not icon_data or icon_data == "" then
-                    hv = parameters:get_child_value(6)
-                    hvicondata = nil
-                    for k,v in hv:pairs() do
-                        if k == "icon_data" then
-                            -- we expect a string, hopefully this isn't too big :3
-                            hvicondata = tostring(v:get_child_value(6).data)
-                        end
-                    end
-                    icon_data = hvicondata or ""
-                end
                 args.icon = convert_icon(w, h, rowstride, channels, icon_data)
             end
             if replaces_id and replaces_id ~= "" and replaces_id ~= 0 then
