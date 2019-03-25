@@ -53,6 +53,8 @@ tparam_alias('screen_or_idx', 'screen|int')
 new_type("function", "Functions")
 -- Documentation for objects properties
 new_type("property", "Object properties", false, "Type")
+-- Documentation for objects deprecated properties
+new_type("deprecatedproperty", "Deprecated object properties", false, "Type")
 -- New type for signals
 new_type("signal", "Signals", false, "Arguments")
 -- New type for signals connections
@@ -127,6 +129,10 @@ file = {
         -- Ignore some parts of the widget library
         '../lib/awful/widget/init.lua',
         '../lib/naughty/layout/init.lua',
+        '../lib/naughty/widget/init.lua',
+        '../lib/naughty/container/init.lua',
+        '../lib/naughty/list/init.lua',
+        '../lib/naughty/widget/_default.lua',
 
         -- Deprecated classes for one years or more don't deserve entries
         -- in the index
@@ -142,7 +148,8 @@ file = {
 }
 
 local no_prefix = {
-    property = true, signal = true, clientruleproperty = true
+    property = true, signal = true, clientruleproperty = true,
+    deprecatedproperty = true,
 }
 
 custom_display_name_handler = function(item, default_handler)
@@ -153,7 +160,7 @@ custom_display_name_handler = function(item, default_handler)
         return name ~= "" and name or item.name
     end
 
-    if item.type == "deprecated" then
+    if item.type == "deprecated" or item.type == "deprecatedproperty" then
         return default_handler(item) .. "</a> <i class=\"deprecated_label\">[deprecated]</i><a>"
     end
 
