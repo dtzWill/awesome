@@ -38,34 +38,6 @@ function common.create_buttons(buttons, object)
     end
 end
 
-local function default_template()
-    local ib  = wibox.widget.imagebox()
-    local tb  = wibox.widget.textbox()
-    local bgb = wibox.container.background()
-    local tbm = wibox.container.margin(tb, dpi(4), dpi(4))
-    local ibm = wibox.container.margin(ib, dpi(4))
-    local l   = wibox.layout.fixed.horizontal()
-
-    bgb:set_border_strategy("inner")
-
-    -- All of this is added in a fixed widget
-    l:fill_space(true)
-    l:add(ibm)
-    l:add(tbm)
-
-    -- And all of this gets a background
-    bgb:set_widget(l)
-
-    return {
-        ib      = ib,
-        tb      = tb,
-        bgb     = bgb,
-        tbm     = tbm,
-        ibm     = ibm,
-        primary = bgb,
-    }
-end
-
 local function custom_template(args)
     local l = base.make_widget_from_value(args.widget_template)
 
@@ -97,6 +69,38 @@ function common._set_common_property(widget, property, value)
             common._set_common_property(w, property, value)
         end
     end
+end
+
+local function default_template()
+    return custom_template {
+        widget_template = {
+            id = 'background_role',
+            widget = wibox.container.background,
+            {
+                widget = wibox.layout.fixed.horizontal,
+                fill_space = true,
+                {
+                    id = 'icon_margin_role',
+                    widget = wibox.container.margin,
+                    {
+                        id = 'icon_role',
+                        widget = wibox.widget.imagebox,
+                        left = dpi(4),
+                    },
+                },
+                {
+                    id = 'text_margin_role',
+                    widget = wibox.container.margin,
+                    left = dpi(4),
+                    right = dpi(4),
+                    {
+                        id = 'text_role',
+                        widget = wibox.widget.textbox,
+                    },
+                }
+            }
+        }
+    }
 end
 
 --- Common update method.
